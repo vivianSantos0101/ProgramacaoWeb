@@ -1,0 +1,662 @@
+/* =========================================
+   ESTILOS GERAIS - TEMA (LIGHT)
+   ========================================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f7fb; /* Fundo azul bem clarinho */
+    color: #112340; /* Azul escuro quase preto para os textos */
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o rodapé fique no fundo */
+}
+
+/* =========================================
+   CABEÇALHO E NAVEGAÇÃO
+   ========================================= */
+.header-vivian {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 5%;
+    background-color: #112340; /* Fundo escuro do menu */
+    color: #ffffff;
+}
+
+.logo-vivian strong {
+    font-size: 1.8rem;
+    font-family: serif; /* Dá aquele ar mais elegante ao "VS" */
+    letter-spacing: 2px;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: #e2e8f0;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a:hover, nav a.active {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+/* Botão de Contato Branco no Menu */
+.btn-contato {
+    background-color: #112340;
+    color: #fcfcfc !important;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s;
+}
+
+.btn-contato:hover {
+    background-color: #112340;
+    transform: scale(1.05);
+}
+
+/* =========================================
+   ÁREA PRINCIPAL (HERO)
+   ========================================= */
+main {
+    flex-grow: 1; /* Faz o conteúdo empurrar o rodapé para baixo */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-vivian {
+    text-align: center;
+    padding: 60px 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Badge 'Disponível' */
+.badge-disponivel {
+    background-color: #e6eff8;
+    color: #4a6583;
+    padding: 8px 20px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 30px;
+    border: 1px solid #c2d6eb;
+}
+
+.ponto-verde {
+    width: 8px;
+    height: 8px;
+    background-color: #2ecc71;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+/* Títulos */
+.hero-vivian h1 {
+    font-size: 3.5rem;
+    color: #112340;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.texto-sombra {
+    font-size: 2rem;
+    color: #2c4563;
+    font-weight: 600;
+    margin-bottom: 40px;
+    /* Efeito de sombra ao redor do texto conforme a imagem */
+    text-shadow: 0px 5px 15px rgba(17, 35, 64, 0.2); 
+}
+
+/* Box de Apresentação Branco */
+.box-apresentacao {
+    background-color: #ffffff;
+    max-width: 600px;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); /* Sombra suave no fundo branco */
+    border: 1px solid #f0f0f0;
+}
+
+.box-apresentacao p {
+    color: #4a5568;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* =========================================
+   RODAPÉ
+   ========================================= */
+.footer-vivian {
+    text-align: center;
+    padding: 20px;
+    background-color: transparent;
+    color: #718096;
+    font-size: 0.85rem;
+}
+
+/* =========================================
+   RESPONSIVIDADE
+   ========================================= */
+@media (max-width: 768px) {
+    .header-vivian {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero-vivian h1 {
+        font-size: 2.5rem;
+    }
+
+    .texto-sombra {
+        font-size: 1.5rem;
+    }
+
+    .box-apresentacao {
+        padding: 20px;
+    }
+}
+
+/* =========================================
+   ESTILOS DA PÁGINA SOBRE MIM
+   ========================================= */
+
+.sobre-vivian-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    max-width: 1100px;
+    margin: 60px auto;
+    padding: 20px 5%;
+}
+
+/* Estilo da Imagem Redonda com Sombra */
+.sobre-vivian-imagem {
+    flex-shrink: 0; /* Impede a imagem de encolher em telas menores */
+}
+
+.foto-redonda {
+    width: 320px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 50%; /* Faz o recorte 100% circular */
+    border: 6px solid #ffffff; /* Borda branca para destacar */
+    box-shadow: 0 15px 40px rgba(17, 35, 64, 0.15); /* Sombra suave idêntica ao design */
+    transition: transform 0.3s ease;
+}
+
+.foto-redonda:hover {
+    transform: scale(1.02); /* Leve efeito de zoom ao passar o mouse */
+}
+
+/* Estilos do Texto */
+.sobre-vivian-texto {
+    max-width: 600px;
+}
+
+.sobre-vivian-texto h1 {
+    font-size: 2.8rem;
+    color: #112340;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+.sobre-vivian-texto p {
+    color: #4a5568;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+/* Responsividade para a página Sobre Mim */
+@media (max-width: 850px) {
+    .sobre-vivian-container {
+        flex-direction: column; /* Empilha a foto em cima do texto no celular */
+        text-align: center;
+        gap: 40px;
+        margin: 40px auto;
+    }
+
+    .foto-redonda {
+        width: 250px;
+        height: 250px;
+    }
+
+    .sobre-vivian-texto p {
+        text-align: center; /* Centraliza o texto em telas pequenas */
+    }
+}
+
+/* =========================================
+   ESTILOS DA PÁGINA HABILIDADES
+   ========================================= */
+
+.habilidades-vivian-container {
+    max-width: 1000px;
+    margin: 50px auto;
+    padding: 30px 5%;
+    background-color: #ffffff; /* Fundo branco para contrastar com o azul clarinho do body */
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+}
+
+.titulo-secao-vivian {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.titulo-secao-vivian h1 {
+    font-size: 2.2rem;
+    color: #112340;
+    font-weight: 700;
+}
+
+/* Divisão em duas colunas */
+.grid-habilidades {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+}
+
+.bloco-info {
+    margin-bottom: 35px;
+}
+
+.bloco-info h2 {
+    font-size: 1.3rem;
+    color: #112340;
+    margin-bottom: 15px;
+    border-bottom: 2px solid #e6eff8;
+    padding-bottom: 5px;
+}
+
+.bloco-info h3 {
+    font-size: 1.05rem;
+    color: #2c4563;
+    margin-bottom: 5px;
+}
+
+.bloco-info p {
+    font-size: 0.95rem;
+    color: #718096;
+}
+
+/* Lista de Cursos */
+.lista-cursos-vivian {
+    list-style-type: disc;
+    padding-left: 20px;
+    color: #4a5568;
+    font-size: 0.95rem;
+    line-height: 1.8;
+}
+
+.lista-cursos-vivian li {
+    margin-bottom: 5px;
+}
+
+/* Estilo das "Pílulas" (Tags) de Competências */
+.tags-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que as tags quebrem para a linha de baixo */
+    gap: 12px;
+}
+
+.skill-tag {
+    background-color: #e6eff8; /* Azul bem clarinho idêntico ao design */
+    color: #2c4563;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    border-radius: 20px; /* Bordas bem arredondadas (Pílulas) */
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    cursor: default;
+}
+
+.skill-tag:hover {
+    background-color: #c2d6eb;
+    transform: translateY(-2px); /* Efeito sutil de levantar ao passar o mouse */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .grid-habilidades {
+        grid-template-columns: 1fr; /* Passa para 1 coluna no celular */
+        gap: 20px;
+    }
+}
+
+/* =========================================
+   ESTILOS DA PÁGINA DE PROJETOS
+   ========================================= */
+
+.projetos-vivian-container {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 20px 5%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Card de Introdução Superior */
+.intro-projetos-card {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+    margin-bottom: 50px;
+    max-width: 700px;
+}
+
+.intro-projetos-card h1 {
+    font-size: 2.2rem;
+    color: #112340;
+    margin-bottom: 10px;
+}
+
+.intro-projetos-card p {
+    color: #4a5568;
+    font-size: 1rem;
+}
+
+/* Grid para os Cards de Projetos */
+.grid-projetos-vivian {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 30px;
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+/* Card de Cada Projeto */
+.card-projeto-vivian {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    display: flex;
+    align-items: flex-start; /* Alinha o ícone e o texto no topo */
+    gap: 20px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.04);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-projeto-vivian:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(17, 35, 64, 0.1);
+}
+
+/* Ícone do Projeto */
+.icone-projeto {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0;
+    background-color: #f4f7fb;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.icone-projeto img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Conteúdo do Projeto */
+.conteudo-projeto h3 {
+    font-size: 1.2rem;
+    color: #112340;
+    margin-bottom: 8px;
+}
+
+.conteudo-projeto p {
+    color: #718096;
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Chamada Inferior (Gostou de algum projeto?) */
+.cta-projetos {
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.cta-projetos h2 {
+    font-size: 1.8rem;
+    color: #112340;
+    margin-bottom: 10px;
+}
+
+.cta-projetos p {
+    color: #4a5568;
+}
+
+.cta-projetos a {
+    color: #2c4563;
+    font-weight: 600;
+    text-decoration: underline;
+    transition: color 0.3s;
+}
+
+.cta-projetos a:hover {
+    color: #112340;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .grid-projetos-vivian {
+        grid-template-columns: 1fr; /* Um card por linha no celular */
+    }
+    
+    .card-projeto-vivian {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+}
+
+/* =========================================
+   ESTILOS DA PÁGINA DE CONTATO
+   ========================================= */
+
+.contato-vivian-container {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 5%;
+    width: 100%;
+}
+
+.card-contato-vivian {
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 15px 40px rgba(17, 35, 64, 0.06);
+    display: flex;
+    overflow: hidden; /* Garante que os cantos fiquem arredondados */
+}
+
+/* Lado do Formulário */
+.formulario-secao {
+    flex: 3;
+    padding: 50px;
+}
+
+.formulario-secao h1 {
+    font-size: 2rem;
+    color: #112340;
+    margin-bottom: 10px;
+}
+
+.intro-contato-vivian {
+    color: #718096;
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.form-vivian {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2c4563;
+}
+
+.input-group input,
+.input-group textarea {
+    padding: 12px 15px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background-color: #f8fafc;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    color: #112340;
+    transition: border-color 0.3s, background-color 0.3s;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: #4a6583;
+    background-color: #ffffff;
+}
+
+.input-group textarea {
+    resize: vertical;
+}
+
+.btn-enviar-vivian {
+    background-color: #112340;
+    color: #ffffff;
+    border: none;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    margin-top: 10px;
+}
+
+.btn-enviar-vivian:hover {
+    background-color: #2c4563;
+    transform: translateY(-2px);
+}
+
+/* Lado das Informações Diretas */
+.info-secao {
+    flex: 2;
+    background-color: #f4f7fb;
+    padding: 50px;
+    border-left: 1px solid #e2e8f0;
+}
+
+.info-secao h2 {
+    font-size: 1.4rem;
+    color: #112340;
+    margin-bottom: 15px;
+}
+
+.info-secao p {
+    color: #718096;
+    font-size: 0.95rem;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.info-item {
+    margin-bottom: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.info-item strong {
+    color: #2c4563;
+}
+
+.info-item span {
+    color: #4a5568;
+    font-size: 0.95rem;
+}
+
+.redes-sociais-vivian {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.redes-sociais-vivian a {
+    text-decoration: none;
+    background-color: #ffffff;
+    color: #112340;
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s ease;
+}
+
+.redes-sociais-vivian a:hover {
+    background-color: #112340;
+    color: #ffffff;
+    border-color: #112340;
+}
+
+/* Responsividade para o Contato */
+@media (max-width: 850px) {
+    .card-contato-vivian {
+        flex-direction: column;
+    }
+
+    .info-secao {
+        border-left: none;
+        border-top: 1px solid #e2e8f0;
+        padding: 40px 30px;
+    }
+
+    .formulario-secao {
+        padding: 40px 30px;
+    }
+}
