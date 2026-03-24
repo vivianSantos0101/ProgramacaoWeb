@@ -1,0 +1,85 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List Fullstack</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Minhas Tarefas</h1>
+        
+        <div class="card card-padding">
+            <form action="{% url 'criar_tarefa' %}" method="POST" class="form-add">
+                {% csrf_token %}
+                
+                <input type="text" name="titulo" placeholder="O que você precisa fazer?" required class="input-form">
+                
+                <select name="categoria" class="input-form select-form">
+                    <option value="estudos">📚 Estudos</option>
+                    <option value="trabalho">💼 Trabalho</option>
+                    <option value="casa">🏠 Casa</option>
+                </select>
+                
+                <button type="submit" class="btn-adicionar">+ Adicionar</button>
+            </form>
+        </div>
+
+        <div class="grid-categorias">
+            
+            <div class="card">
+                <div class="card-header header-estudos">📚 Estudos</div>
+                <div>
+                    {% for tarefa in tarefas %}
+                        {% if tarefa.category == 'estudos' %}
+                            <div class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-id="{{ tarefa.id }}" {% if tarefa.completed %}checked{% endif %}>
+                                <span class="task-text {% if tarefa.completed %}task-completed{% endif %}">
+                                    {{ tarefa.title }}
+                                </span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header header-trabalho">💼 Trabalho</div>
+                <div>
+                    {% for tarefa in tarefas %}
+                        {% if tarefa.category == 'trabalho' %}
+                            <div class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-id="{{ tarefa.id }}" {% if tarefa.completed %}checked{% endif %}>
+                                <span class="task-text {% if tarefa.completed %}task-completed{% endif %}">
+                                    {{ tarefa.title }}
+                                </span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header header-casa">🏠 Casa</div>
+                <div>
+                    {% for tarefa in tarefas %}
+                        {% if tarefa.category == 'casa' %}
+                            <div class="task-item">
+                                <input type="checkbox" class="task-checkbox" data-id="{{ tarefa.id }}" {% if tarefa.completed %}checked{% endif %}>
+                                <span class="task-text {% if tarefa.completed %}task-completed{% endif %}">
+                                    {{ tarefa.title }}
+                                </span>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>

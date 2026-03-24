@@ -1,0 +1,63 @@
+/* Reset básico para garantir que fique igual em todos os navegadores */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    background-color: #f1f5f9; 
+    padding: 20px; 
+}
+
+.container { max-width: 1000px; margin: auto; }
+
+h1.title { color: #1e3a8a; margin-bottom: 20px; }
+
+/* Estrutura dos Cards */
+.card { 
+    background: white; 
+    border-radius: 8px; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    overflow: hidden; 
+    margin-bottom: 20px; 
+}
+
+.card-padding { padding: 20px; }
+
+/* Cabeçalhos das Colunas */
+.card-header { padding: 15px; font-weight: bold; background: #e0f2fe; }
+.header-estudos { border-top: 4px solid #3b82f6; }
+.header-trabalho { border-top: 4px solid #60a5fa; }
+.header-casa { border-top: 4px solid #93c5fd; }
+
+/* Grid e Itens da Tarefa */
+.grid-categorias { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+.task-item { 
+    display: flex; 
+    align-items: center; 
+    padding: 12px 15px; 
+    border-bottom: 1px solid #f1f5f9; 
+    transition: 0.2s; 
+}
+.task-item:last-child { border-bottom: none; }
+.task-item:hover { background-color: #f8fafc; }
+
+/* O texto da tarefa e a classe que o JS vai ativar quando for concluída */
+.task-text { margin-left: 10px; transition: 0.3s; }
+.task-completed { text-decoration: line-through; color: #94a3b8; }
+
+/* Formulário de Adição */
+.form-add { display: flex; gap: 10px; align-items: center; }
+.input-form { flex: 1; padding: 10px; border: 1px solid #cbd5e1; border-radius: 5px; font-size: 16px; outline: none; }
+.input-form:focus { border-color: #2563eb; }
+.select-form { flex: 0.5; background-color: white; }
+
+.btn-adicionar { 
+    background-color: #2563eb; 
+    color: white; border: none; 
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    cursor: pointer; 
+    font-weight: bold; 
+    transition: 0.3s; 
+}
+.btn-adicionar:hover { background-color: #1d4ed8; }
