@@ -1,9 +1,12 @@
 #  To-Do List Fullstack
 
- **Tecnologias Backend:** Python 3.x & Django
- **API:** Django REST Framework (DRF)
- **Frontend:** HTML5, CSS3 (Customizado) & JavaScript (Fetch API)
- **Banco de Dados:** SQLite (embutido)
+ **Tecnologias Backend:**  Python 3.x & Django;
+
+ **API:**  Django REST Framework (DRF);
+
+ **Frontend:**  HTML5, CSS3 (Customizado) & JavaScript (Fetch API);
+
+ **Banco de Dados:**  SQLite (embutido).
 
 ---
 
