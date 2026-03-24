@@ -6,8 +6,7 @@ import sys
 
 def main():
     """Run administrative tasks."""
-    # Aqui o Django define onde estão as configurações do seu projeto.
-    # Se você mudou o nome da pasta 'core', deve mudar aqui também.
+   
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
     try:
         from django.core.management import execute_from_command_line

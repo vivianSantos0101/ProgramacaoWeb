@@ -1,4 +1,5 @@
-#  To-Do List Fullstack
+#  To-Do List Fullstack foco em Java Script ( materia de Prog. Web - André Olimpio)
+
 
  **Tecnologias Backend:**  Python 3.x & Django;
 
@@ -36,8 +37,9 @@ source venv/bin/activate
 
 ### 3. Instalar Dependências
 
+```bash 
 pip install django djangorestframework django-cors-headers
-
+```
 
 ### 4. Preparar o Banco de Dados
 ``` bash
@@ -63,7 +65,7 @@ python manage.py runserver
 ├── tasks/         # App de tarefas (models, views, serializers)
 ├── static/        # Arquivos estáticos (CSS e JS)
 │   ├── css/style.css
-│   └── js/script.js
+│   └── js/script.js  #FOCO DA MATERIA DE PROG. WEB
 ├── templates/     # Arquivos HTML
 │   └── index.html
 ├── manage.py      # Utilitário de comando do Django

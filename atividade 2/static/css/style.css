@@ -1,4 +1,4 @@
-/* Reset básico para garantir que fique igual em todos os navegadores */
+
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
 body { 
