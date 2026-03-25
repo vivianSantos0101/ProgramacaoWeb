@@ -27,18 +27,19 @@
             </form>
         </div>
 
+        <h2 style="margin-top: 30px; margin-bottom: 15px; color: #333; font-size: 1.5rem;">⏳ Tarefas Pendentes</h2>
+
         <div class="grid-categorias">
             
             <div class="card">
                 <div class="card-header header-estudos">📚 Estudos</div>
                 <div>
-                    {% for tarefa in tarefas %}
+                    {% for tarefa in tasks_pending %}
                         {% if tarefa.category == 'estudos' %}
-                            <div class="task-item">
-                                <input type="checkbox" class="task-checkbox" data-id="{{ tarefa.id }}" {% if tarefa.completed %}checked{% endif %}>
-                                <span class="task-text {% if tarefa.completed %}task-completed{% endif %}">
-                                    {{ tarefa.title }}
-                                </span>
+                            <div class="task-item" id="task-{{ tarefa.id }}">
+                                <input type="checkbox" class="task-checkbox" data-id="{{ tarefa.id }}">
+                                <span class="task-text">{{ tarefa.title }}</span>
+                                <button class="btn-confirm" id="confirm-{{ tarefa.id }}" style="display: none; margin-left: auto; cursor: pointer; background: #4caf50; color: white; border: none; border-radius: 4px; padding: 4px 8px; font-size: 12px; font-weight: bold;">Confirmar</button>
                             </div>
                         {% endif %}
                     {% endfor %}
@@ -48,13 +49,12 @@
             <div class="card">
                 <div class="card-header header-trabalho">💼 Trabalho</div>
                 <div>
-                    {% for tarefa in tarefas %}
+                    {% for tarefa in tasks_pending %}
                         {% if tarefa.category == 'trabalho' %}
-                            <div class="task-item">
-                                <input type="checkbox" class="task-checkbox" data-id="{{ tarefa.id }}" {% if tarefa.completed %}checked{% endif %}>
-                                <span class="task-text {% if tarefa.completed %}task-completed{% endif %}">
-                                    {{ tarefa.title }}
-                                </span>
+                            <div class="task-item" id="task-{{ tarefa.id }}">
+                                <input type="checkbox" class="task-checkbox" data-id="{{ tarefa.id }}">
+                                <span class="task-text">{{ tarefa.title }}</span>
+                                <button class="btn-confirm" id="confirm-{{ tarefa.id }}" style="display: none; margin-left: auto; cursor: pointer; background: #4caf50; color: white; border: none; border-radius: 4px; padding: 4px 8px; font-size: 12px; font-weight: bold;">Confirmar</button>
                             </div>
                         {% endif %}
                     {% endfor %}
@@ -64,13 +64,12 @@
             <div class="card">
                 <div class="card-header header-casa">🏠 Casa</div>
                 <div>
-                    {% for tarefa in tarefas %}
+                    {% for tarefa in tasks_pending %}
                         {% if tarefa.category == 'casa' %}
-                            <div class="task-item">
-                                <input type="checkbox" class="task-checkbox" data-id="{{ tarefa.id }}" {% if tarefa.completed %}checked{% endif %}>
-                                <span class="task-text {% if tarefa.completed %}task-completed{% endif %}">
-                                    {{ tarefa.title }}
-                                </span>
+                            <div class="task-item" id="task-{{ tarefa.id }}">
+                                <input type="checkbox" class="task-checkbox" data-id="{{ tarefa.id }}">
+                                <span class="task-text">{{ tarefa.title }}</span>
+                                <button class="btn-confirm" id="confirm-{{ tarefa.id }}" style="display: none; margin-left: auto; cursor: pointer; background: #4caf50; color: white; border: none; border-radius: 4px; padding: 4px 8px; font-size: 12px; font-weight: bold;">Confirmar</button>
                             </div>
                         {% endif %}
                     {% endfor %}
@@ -78,6 +77,27 @@
             </div>
 
         </div>
+
+        <h2 style="margin-top: 40px; margin-bottom: 15px; color: #333; font-size: 1.5rem;">✅ Tarefas Concluídas</h2>
+        
+        <div class="card" style="margin-bottom: 40px;">
+            <div class="card-header" style="background-color: #757575; color: white;">Histórico de Conclusões</div>
+            <div style="padding: 10px;">
+                {% for tarefa in tasks_completed %}
+                    <div class="task-item" style="opacity: 0.7; border-bottom: 1px solid #eee; padding: 10px 0;">
+                        <span class="task-text task-completed" style="text-decoration: line-through; color: #555;">
+                            {{ tarefa.title }} 
+                            <small style="color: #888; margin-left: 5px;">
+                                ({{ tarefa.get_category_display }})
+                            </small>
+                        </span>
+                    </div>
+                {% empty %}
+                    <p style="text-align: center; color: #888; font-size: 14px; padding: 15px 0;">Nenhuma tarefa concluída ainda. Vamos ao trabalho! 💪</p>
+                {% endfor %}
+            </div>
+        </div>
+
     </div>
 
     <script src="{% static 'js/script.js' %}"></script>

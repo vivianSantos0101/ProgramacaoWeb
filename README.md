@@ -11,25 +11,30 @@
 
 ---
 
-## 🛠 Como rodar o projeto
+## 🛠 Como rodar o projeto:
 
-### 1. Entrar na pasta do projeto
+### 1. Clonar projeto:
+
+```bash
+git clone https://github.com/vivianSantos0101/ProgramacaoWeb.git
+
+```
+
+### 1.1 Entrar na pasta do projeto
 
 ```bash
 cd caminho/para/seu/projeto
 ```
 
-
 ### 2. Configurar o Ambiente Virtual (Venv)
 
-Windows:
+para Windows use:
 ``` bash
 python -m venv venv
 .\venv\Scripts\activate 
 ```
 
-
-Linux/Mac:
+para Linux/Mac use:
 ``` bash
 python3 -m venv venv
 source venv/bin/activate 
@@ -41,12 +46,21 @@ source venv/bin/activate
 pip install django djangorestframework django-cors-headers
 ```
 
+### 3.1 update no pip, normalmente aparece o codigo acima em verde, caso não:
+
+``` bash 
+python -m pip install --upgrade pip   
+```
+
 ### 4. Preparar o Banco de Dados
 ``` bash
 python manage.py makemigrations
-python manage.py migrate 
 ```
 
+``` bash
+python manage.py migrate 
+
+```
 
 ### 5. Iniciar o Servidor
 
@@ -69,7 +83,7 @@ python manage.py runserver
 ├── templates/     # Arquivos HTML
 │   └── index.html
 ├── manage.py      # Utilitário de comando do Django
-└── db.sqlite3     # Banco de dados
+└── db.sqlite3     # Banco de dados 
 
 ```
 

@@ -1,8 +1,7 @@
 from django.db import models
 
-
 class Task(models.Model):
-    # Categorias fixas para evitar erros de digitação e facilitar o filtro no Front
+    # filtro de categoria
     CATEGORY_CHOICES = [
         ('estudos', 'Estudos'),
         ('trabalho', 'Trabalho'),
