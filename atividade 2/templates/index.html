@@ -27,12 +27,16 @@
             </form>
         </div>
 
-        <h2 style="margin-top: 30px; margin-bottom: 15px; color: #333; font-size: 1.5rem;">⏳ Tarefas Pendentes</h2>
+      <h2 style="margin-top: 30px; margin-bottom: 15px; color: #333; font-size: 1.5rem; display: flex; align-items: center;">
+    <img src="{% static 'img/pendentes_small-png.png' %}" class="icon-small" alt="Pendentes"> Tarefas Pendentes
+</h2>
 
         <div class="grid-categorias">
             
             <div class="card">
-                <div class="card-header header-estudos">📚 Estudos</div>
+               <div class="card-header header-estudos">
+    <img src="{% static 'img/estudo_small-png.png' %}" class="icon-small" alt="Estudos"> Estudos
+    </div>
                 <div>
                     {% for tarefa in tasks_pending %}
                         {% if tarefa.category == 'estudos' %}
@@ -47,7 +51,9 @@
             </div>
 
             <div class="card">
-                <div class="card-header header-trabalho">💼 Trabalho</div>
+               <div class="card-header header-trabalho">
+    <img src="{% static 'img/trabalho_small-png.png' %}" class="icon-small" alt="Trabalho"> Trabalho
+</div>
                 <div>
                     {% for tarefa in tasks_pending %}
                         {% if tarefa.category == 'trabalho' %}
@@ -62,7 +68,9 @@
             </div>
 
             <div class="card">
-                <div class="card-header header-casa">🏠 Casa</div>
+                <div class="card-header header-casa">
+    <img src="{% static 'img/casa_small-png.png' %}" class="icon-small" alt="Casa"> Casa
+    </div>
                 <div>
                     {% for tarefa in tasks_pending %}
                         {% if tarefa.category == 'casa' %}
@@ -78,7 +86,9 @@
 
         </div>
 
-        <h2 style="margin-top: 40px; margin-bottom: 15px; color: #333; font-size: 1.5rem;">✅ Tarefas Concluídas</h2>
+<h2 style="margin-top: 40px; margin-bottom: 15px; color: #333; font-size: 1.5rem; display: flex; align-items: center;">
+    <img src="{% static 'img/concluido_small-png.png' %}" class="icon-small" alt="Concluídas"> Tarefas Concluídas
+</h2>
         
         <div class="card" style="margin-bottom: 40px;">
             <div class="card-header" style="background-color: #757575; color: white;">Histórico de Conclusões</div>

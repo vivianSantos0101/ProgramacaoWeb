@@ -61,3 +61,12 @@ h1.title { color: #1e3a8a; margin-bottom: 20px; }
     transition: 0.3s; 
 }
 .btn-adicionar:hover { background-color: #1d4ed8; }
+
+
+
+.icon-small {
+    width: 30px; 
+    height: auto;
+    vertical-align: middle; 
+    margin-right: 8px; /* Dá um espacinho entre a imagem e a palavra */
+}
