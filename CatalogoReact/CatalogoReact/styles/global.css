@@ -1,0 +1,96 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Crimson+Text:wght@400;600;700&display=swap');
+@import "tailwindcss";
+
+
+
+@layer base {
+  :root {
+    /* Vintage Cinema Color Palette */
+    --color-vintage-cream: #f4f1e8;
+    --color-vintage-paper: #e8dcc4;
+    --color-vintage-brown: #8b6f47;
+    --color-vintage-dark: #3d2817;
+    --color-vintage-sepia: #a0826d;
+    --color-vintage-gold: #d4af37;
+    --color-vintage-red: #8b1e1e;
+    --color-vintage-film: #1a1a1a;
+
+    /* Typography */
+    --font-display: 'Playfair Display', serif;
+    --font-body: 'Crimson Text', serif;
+  }
+
+  * {
+    border-color: #ccc;
+  }
+
+  body {
+    background-color: var(--color-vintage-cream);
+    color: var(--color-vintage-dark);
+    font-family: var(--font-body);
+    background-image: 
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.02) 2px,
+        rgba(0, 0, 0, 0.02) 4px
+      ),
+      radial-gradient(
+        ellipse at center,
+        transparent 0%,
+        rgba(0, 0, 0, 0.05) 100%
+      );
+  }
+
+  h1 {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--color-vintage-dark);
+    letter-spacing: 0.1em;
+  }
+
+  h2 {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-vintage-dark);
+  }
+
+  h3 {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-vintage-brown);
+  }
+
+  h4 {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--color-vintage-brown);
+  }
+
+  /* Vintage decorative elements */
+  .vintage-border {
+    border: 3px solid var(--color-vintage-brown);
+    border-image: repeating-linear-gradient(
+      45deg,
+      var(--color-vintage-brown),
+      var(--color-vintage-brown) 10px,
+      var(--color-vintage-gold) 10px,
+      var(--color-vintage-gold) 20px
+    ) 10;
+  }
+
+  .film-grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.3;
+  }
+}
