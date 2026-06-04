@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List Fullstack</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Minhas Tarefas</h1>
+        
+        <div class="card card-padding">
+            <form action="{% url 'criar_tarefa' %}" method="POST" class="form-add">
+                {% csrf_token %}
+                
+                <input type="text" name="titulo" placeholder="O que você precisa fazer?" required class="input-form">
+                
+                <select name="categoria" class="input-form select-form">
+                    <option value="estudos">📚 Estudos</option>
+                    <option value="trabalho">💼 Trabalho</option>
+                    <option value="casa">🏠 Casa</option>
+                </select>
+                
+                <button type="submit" class="btn-adicionar">+ Adicionar</button>
+            </form>
+        </div>
+
+      <h2 style="margin-top: 30px; margin-bottom: 15px; color: #333; font-size: 1.5rem; display: flex; align-items: center;">
+    <img src="{% static 'img/pendentes_small-png.png' %}" class="icon-small" alt="Pendentes"> Tarefas Pendentes
+</h2>
+
+        <div class="grid-categorias">
+            
+            <div class="card">
+               <div class="card-header header-estudos">
+    <img src="{% static 'img/estudo_small-png.png' %}" class="icon-small" alt="Estudos"> Estudos
+    </div>
+                <div>
+                    {% for tarefa in tasks_pending %}
+                        {% if tarefa.category == 'estudos' %}
+                            <div class="task-item" id="task-{{ tarefa.id }}">
+                                <input type="checkbox" class="task-checkbox" data-id="{{ tarefa.id }}">
+                                <span class="task-text">{{ tarefa.title }}</span>
+                                <button class="btn-confirm" id="confirm-{{ tarefa.id }}" style="display: none; margin-left: auto; cursor: pointer; background: #4caf50; color: white; border: none; border-radius: 4px; padding: 4px 8px; font-size: 12px; font-weight: bold;">Confirmar</button>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="card">
+               <div class="card-header header-trabalho">
+    <img src="{% static 'img/trabalho_small-png.png' %}" class="icon-small" alt="Trabalho"> Trabalho
+</div>
+                <div>
+                    {% for tarefa in tasks_pending %}
+                        {% if tarefa.category == 'trabalho' %}
+                            <div class="task-item" id="task-{{ tarefa.id }}">
+                                <input type="checkbox" class="task-checkbox" data-id="{{ tarefa.id }}">
+                                <span class="task-text">{{ tarefa.title }}</span>
+                                <button class="btn-confirm" id="confirm-{{ tarefa.id }}" style="display: none; margin-left: auto; cursor: pointer; background: #4caf50; color: white; border: none; border-radius: 4px; padding: 4px 8px; font-size: 12px; font-weight: bold;">Confirmar</button>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header header-casa">
+    <img src="{% static 'img/casa_small-png.png' %}" class="icon-small" alt="Casa"> Casa
+    </div>
+                <div>
+                    {% for tarefa in tasks_pending %}
+                        {% if tarefa.category == 'casa' %}
+                            <div class="task-item" id="task-{{ tarefa.id }}">
+                                <input type="checkbox" class="task-checkbox" data-id="{{ tarefa.id }}">
+                                <span class="task-text">{{ tarefa.title }}</span>
+                                <button class="btn-confirm" id="confirm-{{ tarefa.id }}" style="display: none; margin-left: auto; cursor: pointer; background: #4caf50; color: white; border: none; border-radius: 4px; padding: 4px 8px; font-size: 12px; font-weight: bold;">Confirmar</button>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+
+<h2 style="margin-top: 40px; margin-bottom: 15px; color: #333; font-size: 1.5rem; display: flex; align-items: center;">
+    <img src="{% static 'img/concluido_small-png.png' %}" class="icon-small" alt="Concluídas"> Tarefas Concluídas
+</h2>
+        
+        <div class="card" style="margin-bottom: 40px;">
+            <div class="card-header" style="background-color: #757575; color: white;">Histórico de Conclusões</div>
+            <div style="padding: 10px;">
+                {% for tarefa in tasks_completed %}
+                    <div class="task-item" style="opacity: 0.7; border-bottom: 1px solid #eee; padding: 10px 0;">
+                        <span class="task-text task-completed" style="text-decoration: line-through; color: #555;">
+                            {{ tarefa.title }} 
+                            <small style="color: #888; margin-left: 5px;">
+                                ({{ tarefa.get_category_display }})
+                            </small>
+                        </span>
+                    </div>
+                {% empty %}
+                    <p style="text-align: center; color: #888; font-size: 14px; padding: 15px 0;">Nenhuma tarefa concluída ainda. Vamos ao trabalho! 💪</p>
+                {% endfor %}
+            </div>
+        </div>
+
+    </div>
+
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+</html>
