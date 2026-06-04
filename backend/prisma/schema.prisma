@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id       Int      @id @default(autoincrement())
+  nome     String
+  email    String   @unique
+  senha    String
+  criadoEm DateTime @default(now()) @map("criado_em")
+
+  @@map("usuarios")
+}
+
+model Continente {
+  id          Int       @id @default(autoincrement())
+  nome        String    @unique
+  descricao   String?
+  criadoEm    DateTime  @default(now()) @map("criado_em")
+  atualizadoEm DateTime @updatedAt @map("atualizado_em")
+  paises      Pais[]
+
+  @@map("continentes")
+}
+
+model Pais {
+  id           Int       @id @default(autoincrement())
+  nome         String
+  populacao    BigInt?
+  idiomaOficial String?  @map("idioma_oficial")
+  moeda        String?
+  continenteId Int       @map("id_continente")
+  criadoEm     DateTime  @default(now()) @map("criado_em")
+  atualizadoEm DateTime  @updatedAt @map("atualizado_em")
+  continente   Continente @relation(fields: [continenteId], references: [id], onDelete: Cascade)
+  cidades      Cidade[]
+
+  @@unique([nome, continenteId])
+  @@map("paises")
+}
+
+model Cidade {
+  id           Int       @id @default(autoincrement())
+  nome         String
+  populacao    BigInt?
+  latitude     Float?
+  longitude    Float?
+  paisId       Int       @map("id_pais")
+  criadoEm     DateTime  @default(now()) @map("criado_em")
+  atualizadoEm DateTime  @updatedAt @map("atualizado_em")
+  pais         Pais      @relation(fields: [paisId], references: [id], onDelete: Cascade)
+
+  @@unique([nome, paisId])
+  @@map("cidades")
+}
