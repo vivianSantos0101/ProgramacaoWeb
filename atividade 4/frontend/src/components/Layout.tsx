@@ -1,5 +1,6 @@
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import GlobeBackground from './GlobeBackground';
 
 export default function Layout() {
   const navigate = useNavigate();
@@ -58,6 +59,8 @@ export default function Layout() {
       </aside>
 
       {sidebarOpen && <div className="overlay" onClick={() => setSidebarOpen(false)} />}
+
+      <GlobeBackground />
 
       <main className="main-content">
         <Outlet />
