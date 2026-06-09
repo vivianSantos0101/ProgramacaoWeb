@@ -1,5 +1,6 @@
 import { useEffect, useState, FormEvent } from 'react';
 import { continenteApi, Continente } from '../services/api';
+import { showToast } from '../components/Toast';
 
 export default function Continentes() {
   const [items, setItems] = useState<Continente[]>([]);
@@ -49,27 +50,34 @@ export default function Continentes() {
     try {
       if (editItem) {
         await continenteApi.atualizar(editItem.id, { nome, descricao });
+        showToast('Continente atualizado com sucesso!');
       } else {
         await continenteApi.criar({ nome, descricao });
+        showToast('Continente criado com sucesso!');
       }
       setShowModal(false);
       carregar(pagina);
     } catch (err: any) {
       setError(err.response?.data?.error || 'Erro ao salvar');
+      showToast(err.response?.data?.error || 'Erro ao salvar', 'error');
     } finally { setLoading(false); }
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('Excluir este continente?')) return;
+    if (!confirm('Tem certeza que deseja excluir este continente? Todos os países e cidades vinculados também serão excluídos.')) return;
     try {
       await continenteApi.excluir(id);
+      showToast('Continente excluído com sucesso!');
       carregar(pagina);
-    } catch { setError('Erro ao excluir'); }
+    } catch {
+      setError('Erro ao excluir');
+      showToast('Erro ao excluir continente', 'error');
+    }
   };
 
   return (
     <div className="page">
-      <div className="breadcrumb"><a href="/">In&iacute;cio</a> <span>/</span> <span>Continentes</span></div>
+      <div className="breadcrumb"><a href="/">Início</a> <span>/</span> <span>Continentes</span></div>
       <div className="page-header">
         <h1>Continentes</h1>
         <button className="btn btn-primary" onClick={openCreate}>+ Novo Continente</button>
@@ -79,9 +87,14 @@ export default function Continentes() {
 
       <div className="table-card">
         {loading && items.length === 0 ? (
-          <p className="text-muted">Carregando...</p>
+          <div className="empty-state">
+            <div className="empty-state-text">Carregando...</div>
+          </div>
         ) : items.length === 0 ? (
-          <p className="text-muted">Nenhum continente cadastrado.</p>
+          <div className="empty-state">
+            <div className="empty-state-icon">--</div>
+            <div className="empty-state-text">Nenhum continente cadastrado ainda.<br />Clique em "+ Novo Continente" para começar.</div>
+          </div>
         ) : (
           <>
             <table className="table">
@@ -99,8 +112,8 @@ export default function Continentes() {
                   <tr key={item.id}>
                     <td>{item.id}</td>
                     <td><strong>{item.nome}</strong></td>
-                    <td className="text-muted">{item.descricao || '—'}</td>
-                    <td>{item._count?.paises ?? 0}</td>
+                    <td>{item.descricao || '—'}</td>
+                    <td><span className="badge">{item._count?.paises ?? 0}</span></td>
                     <td className="actions">
                       <button className="btn btn-sm btn-edit" onClick={() => openEdit(item)}>Editar</button>
                       <button className="btn btn-sm btn-delete" onClick={() => handleDelete(item.id)}>Excluir</button>

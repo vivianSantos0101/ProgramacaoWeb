@@ -7,10 +7,12 @@ import Cidades from './pages/Cidades';
 import ApiData from './pages/ApiData';
 import ProtectedRoute from './components/ProtectedRoute';
 import Layout from './components/Layout';
+import ToastContainer from './components/Toast';
 
 function App() {
   return (
     <BrowserRouter>
+      <ToastContainer />
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route element={<ProtectedRoute />}>

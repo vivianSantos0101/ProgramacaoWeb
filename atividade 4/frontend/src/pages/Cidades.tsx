@@ -1,5 +1,6 @@
 import { useEffect, useState, FormEvent } from 'react';
 import { cidadeApi, paisApi, continenteApi, Cidade, Pais, Continente } from '../services/api';
+import { showToast } from '../components/Toast';
 
 export default function Cidades() {
   const [items, setItems] = useState<Cidade[]>([]);
@@ -19,6 +20,9 @@ export default function Cidades() {
   const [paisId, setPaisId] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+
+  // Separate state for the modal's country list (loads ALL countries)
+  const [modalPaises, setModalPaises] = useState<Pais[]>([]);
 
   const carregar = async (p = 1) => {
     setLoading(true);
@@ -49,10 +53,21 @@ export default function Cidades() {
 
   useEffect(() => { carregar(); }, [filtroPais, filtroContinente]);
 
+  // Load all countries for the modal when it opens
+  const loadModalPaises = async () => {
+    try {
+      const res = await paisApi.listar(1, 1000);
+      setModalPaises(res.data.data);
+    } catch {
+      setModalPaises([]);
+    }
+  };
+
   const openCreate = () => {
     setEditItem(null);
     setNome(''); setPopulacao(''); setLatitude(''); setLongitude(''); setPaisId('');
     setShowModal(true); setError('');
+    loadModalPaises();
   };
 
   const openEdit = (item: Cidade) => {
@@ -63,6 +78,7 @@ export default function Cidades() {
     setLongitude(item.longitude?.toString() || '');
     setPaisId(item.paisId.toString());
     setShowModal(true); setError('');
+    loadModalPaises();
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -78,20 +94,29 @@ export default function Cidades() {
       };
       if (editItem) {
         await cidadeApi.atualizar(editItem.id, data);
+        showToast('Cidade atualizada com sucesso!');
       } else {
         await cidadeApi.criar(data);
+        showToast('Cidade criada com sucesso!');
       }
       setShowModal(false);
       carregar(pagina);
     } catch (err: any) {
       setError(err.response?.data?.error || 'Erro ao salvar');
+      showToast(err.response?.data?.error || 'Erro ao salvar', 'error');
     } finally { setLoading(false); }
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('Excluir esta cidade?')) return;
-    try { await cidadeApi.excluir(id); carregar(pagina); }
-    catch { setError('Erro ao excluir'); }
+    if (!confirm('Tem certeza que deseja excluir esta cidade?')) return;
+    try {
+      await cidadeApi.excluir(id);
+      showToast('Cidade excluída com sucesso!');
+      carregar(pagina);
+    } catch {
+      setError('Erro ao excluir');
+      showToast('Erro ao excluir cidade', 'error');
+    }
   };
 
   const formatNum = (n: string | null | undefined) => {
@@ -101,7 +126,7 @@ export default function Cidades() {
 
   return (
     <div className="page">
-      <div className="breadcrumb"><a href="/">In&iacute;cio</a> <span>/</span> <span>Cidades</span></div>
+      <div className="breadcrumb"><a href="/">Início</a> <span>/</span> <span>Cidades</span></div>
       <div className="page-header">
         <h1>Cidades</h1>
         <button className="btn btn-primary" onClick={openCreate}>+ Nova Cidade</button>
@@ -126,9 +151,14 @@ export default function Cidades() {
 
       <div className="table-card">
         {loading && items.length === 0 ? (
-          <p className="text-muted">Carregando...</p>
+          <div className="empty-state">
+            <div className="empty-state-text">Carregando...</div>
+          </div>
         ) : items.length === 0 ? (
-          <p className="text-muted">Nenhuma cidade cadastrada.</p>
+          <div className="empty-state">
+            <div className="empty-state-icon">--</div>
+            <div className="empty-state-text">Nenhuma cidade cadastrada ainda.<br />Clique em "+ Nova Cidade" para começar.</div>
+          </div>
         ) : (
           <>
             <table className="table">
@@ -149,7 +179,7 @@ export default function Cidades() {
                   <tr key={item.id}>
                     <td>{item.id}</td>
                     <td><strong>{item.nome}</strong></td>
-                    <td>{item.pais?.nome || '—'}</td>
+                    <td><span className="badge">{item.pais?.nome || '—'}</span></td>
                     <td>{item.pais?.continente?.nome || '—'}</td>
                     <td>{formatNum(item.populacao)}</td>
                     <td>{item.latitude ?? '—'}</td>
@@ -187,13 +217,15 @@ export default function Cidades() {
               <div className="form-group">
                 <label>País *</label>
                 <select value={paisId} onChange={(e) => setPaisId(e.target.value)} required>
-                  <option value="">Selecione...</option>
-                  {paises.map((p) => (
-                    <option key={p.id} value={p.id}>{p.nome}</option>
+                  <option value="">Selecione um país...</option>
+                  {modalPaises.map((p) => (
+                    <option key={p.id} value={p.id}>
+                      {p.nome} {p.continente ? `(${p.continente.nome})` : ''}
+                    </option>
                   ))}
                 </select>
               </div>
-              <div className="form-row">
+              <div className="form-row-3">
                 <div className="form-group">
                   <label>População</label>
                   <input type="number" value={populacao} onChange={(e) => setPopulacao(e.target.value)} placeholder="12300000" />

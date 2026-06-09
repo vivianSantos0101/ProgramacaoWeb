@@ -1,5 +1,6 @@
 import { useEffect, useState, FormEvent } from 'react';
 import { paisApi, continenteApi, Pais, Continente } from '../services/api';
+import { showToast } from '../components/Toast';
 
 export default function Paises() {
   const [items, setItems] = useState<Pais[]>([]);
@@ -60,20 +61,29 @@ export default function Paises() {
       const data = { nome, populacao, idiomaOficial, moeda, continenteId: parseInt(continenteId) };
       if (editItem) {
         await paisApi.atualizar(editItem.id, data);
+        showToast('País atualizado com sucesso!');
       } else {
         await paisApi.criar(data);
+        showToast('País criado com sucesso!');
       }
       setShowModal(false);
       carregar(pagina);
     } catch (err: any) {
       setError(err.response?.data?.error || 'Erro ao salvar');
+      showToast(err.response?.data?.error || 'Erro ao salvar', 'error');
     } finally { setLoading(false); }
   };
 
   const handleDelete = async (id: number) => {
-    if (!confirm('Excluir este país?')) return;
-    try { await paisApi.excluir(id); carregar(pagina); }
-    catch { setError('Erro ao excluir'); }
+    if (!confirm('Tem certeza que deseja excluir este país? Todas as cidades vinculadas também serão excluídas.')) return;
+    try {
+      await paisApi.excluir(id);
+      showToast('País excluído com sucesso!');
+      carregar(pagina);
+    } catch {
+      setError('Erro ao excluir');
+      showToast('Erro ao excluir país', 'error');
+    }
   };
 
   const formatNum = (n: string | null | undefined) => {
@@ -83,7 +93,7 @@ export default function Paises() {
 
   return (
     <div className="page">
-      <div className="breadcrumb"><a href="/">In&iacute;cio</a> <span>/</span> <span>Pa&iacute;ses</span></div>
+      <div className="breadcrumb"><a href="/">Início</a> <span>/</span> <span>Países</span></div>
       <div className="page-header">
         <h1>Países</h1>
         <button className="btn btn-primary" onClick={openCreate}>+ Novo País</button>
@@ -102,9 +112,14 @@ export default function Paises() {
 
       <div className="table-card">
         {loading && items.length === 0 ? (
-          <p className="text-muted">Carregando...</p>
+          <div className="empty-state">
+            <div className="empty-state-text">Carregando...</div>
+          </div>
         ) : items.length === 0 ? (
-          <p className="text-muted">Nenhum país cadastrado.</p>
+          <div className="empty-state">
+            <div className="empty-state-icon">--</div>
+            <div className="empty-state-text">Nenhum país cadastrado ainda.<br />Clique em "+ Novo País" para começar.</div>
+          </div>
         ) : (
           <>
             <table className="table">
@@ -125,11 +140,11 @@ export default function Paises() {
                   <tr key={item.id}>
                     <td>{item.id}</td>
                     <td><strong>{item.nome}</strong></td>
-                    <td>{item.continente?.nome || '—'}</td>
+                    <td><span className="badge">{item.continente?.nome || '—'}</span></td>
                     <td>{formatNum(item.populacao)}</td>
                     <td>{item.idiomaOficial || '—'}</td>
                     <td>{item.moeda || '—'}</td>
-                    <td>{item._count?.cidades ?? 0}</td>
+                    <td><span className="badge">{item._count?.cidades ?? 0}</span></td>
                     <td className="actions">
                       <button className="btn btn-sm btn-edit" onClick={() => openEdit(item)}>Editar</button>
                       <button className="btn btn-sm btn-delete" onClick={() => handleDelete(item.id)}>Excluir</button>
@@ -163,7 +178,7 @@ export default function Paises() {
               <div className="form-group">
                 <label>Continente *</label>
                 <select value={continenteId} onChange={(e) => setContinenteId(e.target.value)} required>
-                  <option value="">Selecione...</option>
+                  <option value="">Selecione um continente...</option>
                   {continentes.map((c) => (
                     <option key={c.id} value={c.id}>{c.nome}</option>
                   ))}

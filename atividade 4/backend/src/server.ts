@@ -1,3 +1,8 @@
+// BigInt serialization fix — allows JSON.stringify to handle BigInt fields
+(BigInt.prototype as any).toJSON = function () {
+  return this.toString();
+};
+
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';

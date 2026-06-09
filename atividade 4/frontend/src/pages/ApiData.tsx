@@ -44,31 +44,43 @@ export default function ApiData() {
 
   return (
     <div className="page">
-      <div className="breadcrumb"><a href="/">In&iacute;cio</a> <span>/</span> <span>Dados de APIs</span></div>
-      <h1>Dados de APIs Externas</h1>
-      <p className="page-subtitle">Consulte informa&ccedil;&otilde;es de pa&iacute;ses via REST Countries e clima via OpenWeatherMap.</p>
+      <div className="breadcrumb"><a href="/">Início</a> <span>/</span> <span>APIs Externas</span></div>
+      <h1>APIs Externas</h1>
+      <p className="page-subtitle">Consulte informações de países via REST Countries e dados de clima via Open-Meteo.</p>
 
-      <div className="api-grid">
+      <div className="api-grid" style={{ marginTop: '1.5rem' }}>
+        {/* Country Info Card */}
         <div className="card">
-          <h2>Informa&ccedil;&otilde;es do Pa&iacute;s</h2>
-          <p className="text-muted">Bandeira, capital, moeda, idiomas e mais</p>
-          <div className="form-row">
-            <div className="form-group" style={{ flex: 1 }}>
-              <input value={paisNome} onChange={(e) => setPaisNome(e.target.value)}
-                placeholder="Ex: Brazil" onKeyDown={(e) => e.key === 'Enter' && buscarPais()} />
+          <h2>Informações do País</h2>
+          <p className="text-muted" style={{ marginBottom: '1rem' }}>Bandeira, capital, moeda, idiomas e mais dados geográficos</p>
+
+          <div className="search-bar">
+            <div className="form-group">
+              <input
+                value={paisNome}
+                onChange={(e) => setPaisNome(e.target.value)}
+                placeholder="Ex: Brazil, Japan, France..."
+                onKeyDown={(e) => e.key === 'Enter' && buscarPais()}
+              />
             </div>
-            <button className="btn btn-primary" onClick={buscarPais} disabled={loadingPais}>
-              {loadingPais ? 'Buscando...' : 'Buscar'}
+            <button className="btn btn-primary" onClick={buscarPais} disabled={loadingPais} style={{ height: '42px' }}>
+              {loadingPais ? '...' : 'Buscar'}
             </button>
           </div>
 
-          {errorPais && <div className="alert alert-error">{errorPais}</div>}
+          {errorPais && <div className="alert alert-error" style={{ marginTop: '0.75rem' }}>{errorPais}</div>}
+
+          {loadingPais && (
+            <div className="loading-skeleton" style={{ marginTop: '1rem' }}>
+              Buscando informações do país...
+            </div>
+          )}
 
           {countryInfo && (
             <div className="country-info">
               <div className="country-flags">
                 {countryInfo.bandeira && <img src={countryInfo.bandeira} alt="Bandeira" className="flag-img" />}
-                {countryInfo.brasao && <img src={countryInfo.brasao} alt="Brasão" className="flag-img" />}
+                {countryInfo.brasao && <img src={countryInfo.brasao} alt="Brasão" className="flag-img" style={{ maxHeight: '70px' }} />}
               </div>
               <div className="info-grid">
                 <div><strong>Nome Oficial:</strong> {countryInfo.nomeOficial}</div>
@@ -91,20 +103,32 @@ export default function ApiData() {
           )}
         </div>
 
+        {/* Weather Card */}
         <div className="card">
           <h2>Clima</h2>
-          <p className="text-muted">Temperatura, umidade e vento de qualquer cidade</p>
-          <div className="form-row">
-            <div className="form-group" style={{ flex: 1 }}>
-              <input value={cidadeNome} onChange={(e) => setCidadeNome(e.target.value)}
-                placeholder="Ex: São Paulo, Tokyo, London" onKeyDown={(e) => e.key === 'Enter' && buscarClima()} />
+          <p className="text-muted" style={{ marginBottom: '1rem' }}>Temperatura, umidade e vento de qualquer cidade do mundo</p>
+
+          <div className="search-bar">
+            <div className="form-group">
+              <input
+                value={cidadeNome}
+                onChange={(e) => setCidadeNome(e.target.value)}
+                placeholder="Ex: São Paulo, Tokyo, London..."
+                onKeyDown={(e) => e.key === 'Enter' && buscarClima()}
+              />
             </div>
-            <button className="btn btn-primary" onClick={buscarClima} disabled={loadingWeather}>
-              {loadingWeather ? 'Buscando...' : 'Buscar'}
+            <button className="btn btn-primary" onClick={buscarClima} disabled={loadingWeather} style={{ height: '42px' }}>
+              {loadingWeather ? '...' : 'Buscar'}
             </button>
           </div>
 
-          {errorWeather && <div className="alert alert-warning">{errorWeather}</div>}
+          {errorWeather && <div className="alert alert-warning" style={{ marginTop: '0.75rem' }}>{errorWeather}</div>}
+
+          {loadingWeather && (
+            <div className="loading-skeleton" style={{ marginTop: '1rem' }}>
+              Buscando dados climáticos...
+            </div>
+          )}
 
           {weatherData && (
             <div className="weather-info">

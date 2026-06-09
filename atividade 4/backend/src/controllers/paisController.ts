@@ -59,7 +59,7 @@ export async function criar(req: AuthRequest, res: Response) {
     const pais = await prisma.pais.create({
       data: {
         nome,
-        populacao: populacao ? BigInt(populacao) : null,
+        populacao: populacao ? BigInt(Math.floor(Number(populacao))) : null,
         idiomaOficial,
         moeda,
         continenteId: parseInt(continenteId),
@@ -68,7 +68,7 @@ export async function criar(req: AuthRequest, res: Response) {
     });
     res.status(201).json(pais);
   } catch (error: any) {
-    if (error.code === 'P2002') return res.status(400).json({ error: 'País já existe neste continente' });
+    if (error.code === 'P2002') return res.status(400).json({ error: 'Este país já está cadastrado' });
     if (error.code === 'P2003') return res.status(400).json({ error: 'Continente não encontrado' });
     res.status(500).json({ error: 'Erro ao criar país' });
   }
@@ -81,7 +81,7 @@ export async function atualizar(req: AuthRequest, res: Response) {
 
     const data: any = {};
     if (nome) data.nome = nome;
-    if (populacao !== undefined) data.populacao = BigInt(populacao);
+    if (populacao !== undefined) data.populacao = populacao ? BigInt(Math.floor(Number(populacao))) : null;
     if (idiomaOficial !== undefined) data.idiomaOficial = idiomaOficial;
     if (moeda !== undefined) data.moeda = moeda;
     if (continenteId) data.continenteId = parseInt(continenteId);

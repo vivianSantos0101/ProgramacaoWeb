@@ -1,0 +1,43 @@
+# Relatório de Testes Automatizados - World Vision API
+
+Data do teste: 2026-06-09T20:25:48.695Z
+
+## 1. Testes de Autenticação
+- Testando Registro...
+  ✅ Registro bem sucedido.
+- Testando Login...
+  ✅ Login bem sucedido.
+
+## 2. Testes de CRUD - Continentes
+- Testando Criação de Continente...
+  ✅ Continente criado com sucesso. (ID: 5)
+- Testando Leitura de Continentes...
+  ✅ Listagem de continentes bem sucedida.
+- Testando Atualização de Continente...
+  ✅ Continente atualizado com sucesso.
+
+## 3. Testes de CRUD - Países
+- Testando Criação de País...
+  ✅ País criado com sucesso. (ID: 3)
+- Testando Leitura de Países...
+  ✅ Listagem de países bem sucedida.
+
+## 4. Testes de CRUD - Cidades
+- Testando Criação de Cidade...
+  ✅ Cidade criada com sucesso. (ID: 2)
+
+## 5. Testes de Exclusão
+- Testando Exclusão de Cidade...
+  ✅ Cidade excluída com sucesso.
+- Testando Exclusão de País...
+  ✅ País excluído com sucesso.
+- Testando Exclusão de Continente...
+  ✅ Continente excluído com sucesso.
+
+## 6. Testes de APIs Externas
+- Testando Integração com REST Countries...
+  ✅ REST Countries retornou os dados geográficos com sucesso.
+- Testando Integração com Open-Meteo (Clima)...
+  ✅ Open-Meteo retornou a temperatura atual com sucesso.
+
+**Resultado Final:** Todos os testes essenciais passaram com êxito! 🎉

@@ -62,7 +62,7 @@ export async function criar(req: AuthRequest, res: Response) {
     const cidade = await prisma.cidade.create({
       data: {
         nome,
-        populacao: populacao ? BigInt(populacao) : null,
+        populacao: populacao ? BigInt(Math.floor(Number(populacao))) : null,
         latitude: latitude ? parseFloat(latitude) : null,
         longitude: longitude ? parseFloat(longitude) : null,
         paisId: parseInt(paisId),
@@ -77,6 +77,7 @@ export async function criar(req: AuthRequest, res: Response) {
   } catch (error: any) {
     if (error.code === 'P2002') return res.status(400).json({ error: 'Cidade já existe neste país' });
     if (error.code === 'P2003') return res.status(400).json({ error: 'País não encontrado' });
+    console.error('[Cidade] Erro ao criar:', error.message);
     res.status(500).json({ error: 'Erro ao criar cidade' });
   }
 }
@@ -88,7 +89,7 @@ export async function atualizar(req: AuthRequest, res: Response) {
 
     const data: any = {};
     if (nome) data.nome = nome;
-    if (populacao !== undefined) data.populacao = BigInt(populacao);
+    if (populacao !== undefined) data.populacao = populacao ? BigInt(Math.floor(Number(populacao))) : null;
     if (latitude !== undefined) data.latitude = parseFloat(latitude);
     if (longitude !== undefined) data.longitude = parseFloat(longitude);
     if (paisId) data.paisId = parseInt(paisId);

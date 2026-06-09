@@ -24,10 +24,10 @@ export default function Login() {
     const renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    renderer.setClearColor(0x071a10, 1);
+    renderer.setClearColor(0x050d09, 1);
 
     const geo = new THREE.SphereGeometry(6, 16, 16);
-    const mat = new THREE.MeshBasicMaterial({ color: 0x22c55e, wireframe: true, transparent: true, opacity: 0.3 });
+    const mat = new THREE.MeshBasicMaterial({ color: 0x22c55e, wireframe: true, transparent: true, opacity: 0.25 });
     const globe = new THREE.Mesh(geo, mat);
     scene.add(globe);
 
@@ -36,7 +36,7 @@ export default function Login() {
     const pos = new Float32Array(count * 3);
     for (let i = 0; i < count * 3; i++) pos[i] = (Math.random() - 0.5) * 60;
     ptsGeo.setAttribute('position', new THREE.BufferAttribute(pos, 3));
-    const pts = new THREE.Points(ptsGeo, new THREE.PointsMaterial({ size: 0.06, color: 0x4ade80, transparent: true, opacity: 0.3 }));
+    const pts = new THREE.Points(ptsGeo, new THREE.PointsMaterial({ size: 0.06, color: 0x4ade80, transparent: true, opacity: 0.25 }));
     scene.add(pts);
 
     let mouseX = 0, mouseY = 0;
@@ -97,9 +97,11 @@ export default function Login() {
       <canvas ref={canvasRef} className="login-canvas" />
       <div className="login-card">
         <div className="login-header">
-          <div className="login-logo">CM</div>
-          <h2>CRUD Mundo</h2>
-          <p>{isRegister ? 'Crie sua conta' : 'Faça login para continuar'}</p>
+          <div className="login-logo">
+            <img src="/world_vision_logo.png" alt="World Vision" style={{ width: '100%', height: '100%' }} />
+          </div>
+          <h2>World Vision</h2>
+          <p>{isRegister ? 'Crie sua conta para começar' : 'Faça login para continuar'}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="login-form">
@@ -108,7 +110,7 @@ export default function Login() {
           {isRegister && (
             <div className="form-group">
               <label htmlFor="nome">Nome</label>
-              <input id="nome" type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Seu nome" required />
+              <input id="nome" type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder="Seu nome completo" required />
             </div>
           )}
 
@@ -119,11 +121,11 @@ export default function Login() {
 
           <div className="form-group">
             <label htmlFor="senha">Senha</label>
-            <input id="senha" type="password" value={senha} onChange={(e) => setSenha(e.target.value)} placeholder="Sua senha" required minLength={4} />
+            <input id="senha" type="password" value={senha} onChange={(e) => setSenha(e.target.value)} placeholder="••••••••" required minLength={4} />
           </div>
 
           <button type="submit" className="btn btn-primary btn-full" disabled={loading}>
-            {loading ? 'Aguarde...' : isRegister ? 'Cadastrar' : 'Entrar'}
+            {loading ? 'Aguarde...' : isRegister ? 'Criar conta' : 'Entrar'}
           </button>
         </form>
 

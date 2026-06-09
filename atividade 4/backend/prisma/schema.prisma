@@ -30,7 +30,7 @@ model Continente {
 
 model Pais {
   id           Int       @id @default(autoincrement())
-  nome         String
+  nome         String    @unique
   populacao    BigInt?
   idiomaOficial String?  @map("idioma_oficial")
   moeda        String?
@@ -40,7 +40,6 @@ model Pais {
   continente   Continente @relation(fields: [continenteId], references: [id], onDelete: Cascade)
   cidades      Cidade[]
 
-  @@unique([nome, continenteId])
   @@map("paises")
 }
 
