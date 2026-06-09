@@ -7,8 +7,7 @@ export default function ApiData() {
   const [loadingPais, setLoadingPais] = useState(false);
   const [errorPais, setErrorPais] = useState('');
 
-  const [lat, setLat] = useState('');
-  const [lon, setLon] = useState('');
+  const [cidadeNome, setCidadeNome] = useState('');
   const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
   const [loadingWeather, setLoadingWeather] = useState(false);
   const [errorWeather, setErrorWeather] = useState('');
@@ -29,12 +28,12 @@ export default function ApiData() {
   };
 
   const buscarClima = async () => {
-    if (!lat || !lon) return;
+    if (!cidadeNome.trim()) return;
     setLoadingWeather(true);
     setErrorWeather('');
     setWeatherData(null);
     try {
-      const res = await externalApi.getClima(parseFloat(lat), parseFloat(lon));
+      const res = await externalApi.getClima(cidadeNome);
       setWeatherData(res.data);
     } catch (err: any) {
       setErrorWeather(err.response?.data?.error || 'Clima indisponível');
@@ -47,16 +46,16 @@ export default function ApiData() {
     <div className="page">
       <div className="breadcrumb"><a href="/">In&iacute;cio</a> <span>/</span> <span>Dados de APIs</span></div>
       <h1>Dados de APIs Externas</h1>
-      <p className="text-muted">Consulte informações de países via REST Countries e clima via OpenWeatherMap.</p>
+      <p className="page-subtitle">Consulte informa&ccedil;&otilde;es de pa&iacute;ses via REST Countries e clima via OpenWeatherMap.</p>
 
       <div className="api-grid">
         <div className="card">
           <h2>Informa&ccedil;&otilde;es do Pa&iacute;s</h2>
-          <p className="text-muted">Consulte bandeira, capital, moeda e mais via REST Countries</p>
+          <p className="text-muted">Bandeira, capital, moeda, idiomas e mais</p>
           <div className="form-row">
             <div className="form-group" style={{ flex: 1 }}>
               <input value={paisNome} onChange={(e) => setPaisNome(e.target.value)}
-                placeholder="Digite o nome do país (ex: Brazil)" onKeyDown={(e) => e.key === 'Enter' && buscarPais()} />
+                placeholder="Ex: Brazil" onKeyDown={(e) => e.key === 'Enter' && buscarPais()} />
             </div>
             <button className="btn btn-primary" onClick={buscarPais} disabled={loadingPais}>
               {loadingPais ? 'Buscando...' : 'Buscar'}
@@ -94,13 +93,11 @@ export default function ApiData() {
 
         <div className="card">
           <h2>Clima</h2>
-          <p className="text-muted">Consulte o clima de uma cidade por coordenadas</p>
+          <p className="text-muted">Temperatura, umidade e vento de qualquer cidade</p>
           <div className="form-row">
-            <div className="form-group">
-              <input type="number" step="any" value={lat} onChange={(e) => setLat(e.target.value)} placeholder="Latitude" />
-            </div>
-            <div className="form-group">
-              <input type="number" step="any" value={lon} onChange={(e) => setLon(e.target.value)} placeholder="Longitude" />
+            <div className="form-group" style={{ flex: 1 }}>
+              <input value={cidadeNome} onChange={(e) => setCidadeNome(e.target.value)}
+                placeholder="Ex: São Paulo, Tokyo, London" onKeyDown={(e) => e.key === 'Enter' && buscarClima()} />
             </div>
             <button className="btn btn-primary" onClick={buscarClima} disabled={loadingWeather}>
               {loadingWeather ? 'Buscando...' : 'Buscar'}
@@ -115,12 +112,13 @@ export default function ApiData() {
                 {weatherData.icone && <img src={weatherData.icone} alt="Clima" />}
                 <div>
                   <strong>{weatherData.cidade}</strong>
+                  {weatherData.pais && <span className="text-muted">, {weatherData.pais}</span>}
                   <p className="weather-desc">{weatherData.descricao}</p>
                 </div>
-                <span className="weather-temp">{weatherData.temperatura}°C</span>
+                <span className="weather-temp">{Math.round(weatherData.temperatura)}°C</span>
               </div>
               <div className="info-grid">
-                <div><strong>Sensação:</strong> {weatherData.sensacao}°C</div>
+                <div><strong>Sensação:</strong> {Math.round(weatherData.sensacao)}°C</div>
                 <div><strong>Umidade:</strong> {weatherData.umidade}%</div>
                 <div><strong>Vento:</strong> {weatherData.vento} m/s</div>
               </div>

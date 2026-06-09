@@ -85,6 +85,7 @@ export interface WeatherData {
   icone: string;
   vento: number;
   cidade: string;
+  pais: string;
 }
 
 export const authApi = {
@@ -127,7 +128,7 @@ export const cidadeApi = {
 
 export const externalApi = {
   getPaisInfo: (nome: string) => api.get<CountryInfo>(`/external/pais/${encodeURIComponent(nome)}`),
-  getClima: (lat: number, lon: number) => api.get<WeatherData>('/external/clima', { params: { lat, lon } }),
+  getClima: (cidade: string) => api.get<WeatherData>('/external/clima', { params: { cidade } }),
 };
 
 export default api;
